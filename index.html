@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nitika Kumari — Offensive Security &amp; AI-Agent Security Researcher</title>
+<meta name="description" content="Nitika Kumari (nitikasec) is an offensive security researcher specializing in MCP / AI-agent and LLM security. Creator of the Agent Heist attack lab and a field guide on MCP agent attacks.">
+<meta name="author" content="Nitika Kumari">
+<!-- Open Graph / social + Google -->
+<meta property="og:title" content="Nitika Kumari — Offensive Security &amp; AI-Agent Security Researcher">
+<meta property="og:description" content="Offensive security researcher specializing in MCP / AI-agent and LLM security. Creator of Agent Heist.">
+<meta property="og:type" content="profile">
+<meta property="og:url" content="https://nitikasec.github.io/">
+<link rel="canonical" href="https://nitikasec.github.io/">
+<style>
+  :root{
+    --bg:#0c1222; --bg2:#111a30; --card:#16203a; --line:#243150;
+    --text:#e8edf7; --muted:#9fb0cc; --amber:#f5a623; --teal:#35d0ba; --accent:#6ea8ff;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg);color:var(--text);
+    font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--accent);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:860px;margin:0 auto;padding:0 20px}
+  /* Hero */
+  header{
+    background:radial-gradient(1200px 400px at 80% -50%, rgba(53,208,186,.12), transparent),
+               radial-gradient(900px 400px at 0% 0%, rgba(245,166,35,.10), transparent),
+               var(--bg2);
+    border-bottom:1px solid var(--line);padding:68px 0 54px;
+  }
+  .eyebrow{color:var(--teal);font-weight:700;letter-spacing:.14em;text-transform:uppercase;font-size:12px}
+  h1{font-size:clamp(30px,6vw,46px);line-height:1.1;margin:10px 0 8px;font-weight:800}
+  .tag{color:var(--muted);font-size:clamp(16px,3.4vw,20px);max-width:620px}
+  .links{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px}
+  .btn{
+    display:inline-block;padding:9px 15px;border:1px solid var(--line);border-radius:9px;
+    background:var(--card);color:var(--text);font-size:14px;font-weight:600;
+  }
+  .btn:hover{border-color:var(--teal);text-decoration:none}
+  .btn.primary{background:linear-gradient(90deg,var(--amber),#ffc55e);color:#1a1200;border:none}
+  /* Sections */
+  section{padding:46px 0;border-bottom:1px solid var(--line)}
+  h2{font-size:22px;margin-bottom:6px;display:flex;align-items:center;gap:10px}
+  h2::before{content:"";width:16px;height:3px;border-radius:3px;background:var(--amber)}
+  .lead{color:var(--muted);margin-bottom:22px}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:620px){.grid{grid-template-columns:1fr}}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px}
+  .card h3{font-size:17px;margin-bottom:6px}
+  .card p{color:var(--muted);font-size:14.5px}
+  .card .meta{color:var(--teal);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px}
+  ul.clean{list-style:none}
+  ul.clean li{padding:7px 0 7px 22px;position:relative;color:var(--muted)}
+  ul.clean li::before{content:"▹";position:absolute;left:0;color:var(--teal)}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+  .chip{background:#0f1830;border:1px solid var(--line);color:var(--muted);font-size:12.5px;padding:5px 10px;border-radius:999px}
+  footer{padding:34px 0 50px;color:var(--muted);font-size:14px}
+  .soon{color:var(--amber);font-size:12px;font-weight:700;border:1px dashed rgba(245,166,35,.5);padding:2px 8px;border-radius:999px;margin-left:8px}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <div class="eyebrow">Offensive Security · AI-Agent &amp; MCP Security</div>
+    <h1>Nitika Kumari</h1>
+    <p class="tag">Offensive security researcher focused on breaking — and defending — AI agents, LLMs,
+      and the Model Context Protocol. I build attack labs, publish research, and write reproducible
+      findings.</p>
+    <div class="links">
+      <a class="btn primary" href="https://github.com/nitikasec/agent-heist" target="_blank" rel="noopener">⚡ Agent Heist Lab</a>
+      <a class="btn" href="https://github.com/nitikasec" target="_blank" rel="noopener">GitHub</a>
+      <a class="btn" href="https://www.linkedin.com/in/nitikasec" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="btn" href="https://www.linkedin.com/pulse/field-guide-mcp-agent-attacks-lab-you-can-run-nitika-kumari-gc7bc/" target="_blank" rel="noopener">Field Guide →</a>
+    </div>
+  </div>
+</header>
+
+<section id="about">
+  <div class="wrap">
+    <h2>About</h2>
+    <p class="lead">What I do and what I'm known for.</p>
+    <p style="color:var(--muted)">I'm an offensive security analyst with 1+ year of professional
+      experience and 100+ assessments across web, API, mobile, and cloud. Over the past year I've
+      specialized in <strong style="color:var(--text)">AI-agent and LLM security</strong> — how AI
+      systems that use tools and read untrusted content can be attacked, and how to actually defend
+      them. My core thesis: <em style="color:var(--text)">a model refusing is not a security control
+      — enforcement has to live below the model, in the tool layer.</em></p>
+    <div class="chips">
+      <span class="chip">Prompt Injection</span>
+      <span class="chip">Tool Misuse</span>
+      <span class="chip">Excessive Agency</span>
+      <span class="chip">MCP Security</span>
+      <span class="chip">OWASP LLM Top 10</span>
+      <span class="chip">Web / API / Mobile / Cloud</span>
+    </div>
+  </div>
+</section>
+
+<section id="work">
+  <div class="wrap">
+    <h2>Work &amp; Research</h2>
+    <p class="lead">Public labs, tools, and writing.</p>
+    <div class="grid">
+      <div class="card">
+        <div class="meta">Open-source lab</div>
+        <h3>Agent Heist</h3>
+        <p>An intentionally-vulnerable lab where you learn to attack and defend AI agents / LLM apps —
+          five levels covering prompt injection, tool misuse, and excessive agency, with execution
+          traces, defence attribution, and OWASP mapping.</p>
+        <p style="margin-top:8px"><a href="https://github.com/nitikasec/agent-heist" target="_blank" rel="noopener">github.com/nitikasec/agent-heist →</a></p>
+      </div>
+      <div class="card">
+        <div class="meta">Article</div>
+        <h3>A Field Guide to MCP Agent Attacks</h3>
+        <p>Five real agent attack classes with a lab you can run yourself, mapped to the OWASP LLM
+          Top 10 and the MCP security spec — built around the "model refused ≠ secure" thesis.</p>
+        <p style="margin-top:8px"><a href="https://www.linkedin.com/pulse/field-guide-mcp-agent-attacks-lab-you-can-run-nitika-kumari-gc7bc/" target="_blank" rel="noopener">Read the field guide →</a></p>
+      </div>
+      <div class="card">
+        <div class="meta">Tooling</div>
+        <h3>AgentShield &amp; prompt-injection-harness</h3>
+        <p>A static analyzer for MCP server configs, and a harness for testing prompt-injection
+          resistance — part of my toolkit for AI-agent security testing.</p>
+        <p style="margin-top:8px"><a href="https://github.com/nitikasec" target="_blank" rel="noopener">See all repos →</a></p>
+      </div>
+      <div class="card">
+        <div class="meta">Vulnerability research</div>
+        <h3>MCP Server Findings <span class="soon">disclosures in progress</span></h3>
+        <p>Vulnerability research on open-source MCP servers — including command-injection and
+          sandbox-escape classes — reported through responsible disclosure. CVE/advisory links will
+          appear here as they publish.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="speaking">
+  <div class="wrap">
+    <h2>Speaking &amp; Writing <span class="soon">growing</span></h2>
+    <p class="lead">Talks and writeups. Reach out if you'd like me to speak on AI-agent security.</p>
+    <ul class="clean">
+      <li>Field guide to MCP agent attacks — published writeup (linked above).</li>
+      <li>Available for meetup / conference talks on prompt injection, agent tool-abuse, and MCP security.</li>
+    </ul>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <h2>Contact</h2>
+    <p class="lead">Open to AI-security research, red-teaming, and consulting work.</p>
+    <div class="links">
+      <a class="btn" href="https://www.linkedin.com/in/nitikasec" target="_blank" rel="noopener">LinkedIn: /in/nitikasec</a>
+      <a class="btn" href="https://github.com/nitikasec" target="_blank" rel="noopener">GitHub: @nitikasec</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    © <span id="yr"></span> Nitika Kumari · nitikasec · Offensive &amp; AI-agent security research.
+  </div>
+</footer>
+<script>document.getElementById('yr').textContent=new Date().getFullYear();</script>
+</body>
+</html>

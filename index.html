@@ -6,135 +6,227 @@
 <title>Nitika Kumari — Offensive Security &amp; AI-Agent Security Researcher</title>
 <meta name="description" content="Nitika Kumari (nitikasec) is an offensive security researcher specializing in MCP / AI-agent and LLM security. Creator of the Agent Heist attack lab and a field guide on MCP agent attacks.">
 <meta name="author" content="Nitika Kumari">
-<!-- Open Graph / social + Google -->
 <meta property="og:title" content="Nitika Kumari — Offensive Security &amp; AI-Agent Security Researcher">
 <meta property="og:description" content="Offensive security researcher specializing in MCP / AI-agent and LLM security. Creator of Agent Heist.">
 <meta property="og:type" content="profile">
 <meta property="og:url" content="https://nitikasec.github.io/">
 <link rel="canonical" href="https://nitikasec.github.io/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#0c1222; --bg2:#111a30; --card:#16203a; --line:#243150;
-    --text:#e8edf7; --muted:#9fb0cc; --amber:#f5a623; --teal:#35d0ba; --accent:#6ea8ff;
+    --bg:#05080c; --bg2:#0a0f16; --panel:#0c131c; --line:#1c2a3a;
+    --text:#d7e3f0; --muted:#7f93ab; --dim:#54697f;
+    --green:#38ff9d; --cyan:#35d6ff; --amber:#ffb545; --red:#ff5c6c;
+    --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+    --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
   body{
-    background:var(--bg);color:var(--text);
-    font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-    -webkit-font-smoothing:antialiased;
+    background:var(--bg);color:var(--text);font-family:var(--sans);
+    line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden;position:relative;
   }
-  a{color:var(--accent);text-decoration:none}
+  a{color:var(--cyan);text-decoration:none}
   a:hover{text-decoration:underline}
-  .wrap{max-width:860px;margin:0 auto;padding:0 20px}
-  /* Hero */
-  header{
-    background:radial-gradient(1200px 400px at 80% -50%, rgba(53,208,186,.12), transparent),
-               radial-gradient(900px 400px at 0% 0%, rgba(245,166,35,.10), transparent),
-               var(--bg2);
-    border-bottom:1px solid var(--line);padding:68px 0 54px;
-  }
-  .eyebrow{color:var(--teal);font-weight:700;letter-spacing:.14em;text-transform:uppercase;font-size:12px}
-  h1{font-size:clamp(30px,6vw,46px);line-height:1.1;margin:10px 0 8px;font-weight:800}
-  .tag{color:var(--muted);font-size:clamp(16px,3.4vw,20px);max-width:620px}
-  .links{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px}
-  .btn{
-    display:inline-block;padding:9px 15px;border:1px solid var(--line);border-radius:9px;
-    background:var(--card);color:var(--text);font-size:14px;font-weight:600;
-  }
-  .btn:hover{border-color:var(--teal);text-decoration:none}
-  .btn.primary{background:linear-gradient(90deg,var(--amber),#ffc55e);color:#1a1200;border:none}
-  /* Sections */
-  section{padding:46px 0;border-bottom:1px solid var(--line)}
-  h2{font-size:22px;margin-bottom:6px;display:flex;align-items:center;gap:10px}
-  h2::before{content:"";width:16px;height:3px;border-radius:3px;background:var(--amber)}
-  .lead{color:var(--muted);margin-bottom:22px}
+  ::selection{background:var(--green);color:#04120a}
+  /* matrix canvas */
+  #matrix{position:fixed;inset:0;z-index:0;opacity:.14;pointer-events:none}
+  /* scanlines + vignette overlay */
+  .fx{position:fixed;inset:0;z-index:1;pointer-events:none;
+    background:
+      repeating-linear-gradient(0deg, rgba(0,0,0,.14) 0 1px, transparent 1px 3px),
+      radial-gradient(130% 90% at 50% 0%, transparent 55%, rgba(0,0,0,.55) 100%);
+    mix-blend-mode:multiply;}
+  .wrap{max-width:900px;margin:0 auto;padding:0 20px;position:relative;z-index:2}
+  .mono{font-family:var(--mono)}
+  /* ---------- top bar ---------- */
+  .topbar{position:sticky;top:0;z-index:20;background:rgba(5,8,12,.82);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line)}
+  .topbar .row{display:flex;align-items:center;justify-content:space-between;height:52px}
+  .brand{font-family:var(--mono);font-weight:700;color:var(--green);font-size:15px;letter-spacing:.02em}
+  .brand .b{color:var(--dim)}
+  .navlinks{display:flex;gap:18px;font-family:var(--mono);font-size:13px}
+  .navlinks a{color:var(--muted)}
+  .navlinks a:hover{color:var(--green);text-decoration:none}
+  @media(max-width:620px){.navlinks{display:none}}
+  /* ---------- hero ---------- */
+  header{padding:60px 0 40px}
+  .eyebrow{font-family:var(--mono);color:var(--green);font-size:12.5px;letter-spacing:.18em;text-transform:uppercase}
+  .eyebrow::before{content:"// "}
+  h1{font-size:clamp(34px,8vw,64px);line-height:1.02;margin:12px 0 4px;font-weight:800;letter-spacing:-.02em;
+    position:relative;display:inline-block}
+  /* glitch */
+  .glitch{position:relative;color:var(--text)}
+  .glitch::before,.glitch::after{content:attr(data-text);position:absolute;left:0;top:0;width:100%;overflow:hidden;clip-path:inset(0 0 0 0)}
+  .glitch::before{color:var(--cyan);transform:translate(-2px,0);animation:gl1 3.6s infinite steps(2)}
+  .glitch::after{color:var(--red);transform:translate(2px,0);animation:gl2 2.8s infinite steps(2)}
+  @keyframes gl1{0%,92%,100%{clip-path:inset(0 0 100% 0)}93%{clip-path:inset(10% 0 60% 0)}96%{clip-path:inset(50% 0 20% 0)}}
+  @keyframes gl2{0%,90%,100%{clip-path:inset(100% 0 0 0)}91%{clip-path:inset(60% 0 15% 0)}97%{clip-path:inset(20% 0 55% 0)}}
+  .role{font-family:var(--mono);color:var(--muted);font-size:clamp(14px,3.3vw,18px);margin-top:6px}
+  .role b{color:var(--amber);font-weight:500}
+  /* terminal window */
+  .term{margin:26px 0 8px;background:#070c12;border:1px solid var(--line);border-radius:10px;overflow:hidden;
+    box-shadow:0 0 0 1px rgba(56,255,157,.04),0 18px 50px -20px rgba(0,0,0,.8)}
+  .term .bar{display:flex;align-items:center;gap:7px;padding:9px 12px;background:#0b121b;border-bottom:1px solid var(--line)}
+  .dot{width:11px;height:11px;border-radius:50%}
+  .dot.r{background:#ff5f56}.dot.y{background:#ffbd2e}.dot.g{background:#27c93f}
+  .term .title{margin-left:8px;font-family:var(--mono);font-size:12px;color:var(--dim)}
+  .term .body{padding:16px 16px 18px;font-family:var(--mono);font-size:14px;min-height:150px}
+  .term .line{white-space:pre-wrap;word-break:break-word}
+  .term .p{color:var(--green)}            /* prompt */
+  .term .c{color:var(--text)}             /* command */
+  .term .o{color:var(--muted)}            /* output */
+  .term .ok{color:var(--cyan)}
+  .cursor{display:inline-block;width:9px;height:17px;background:var(--green);vertical-align:-3px;animation:blink 1s steps(1) infinite}
+  @keyframes blink{50%{opacity:0}}
+  .cta{margin-top:24px;display:flex;flex-wrap:wrap;gap:10px}
+  .btn{font-family:var(--mono);font-size:13.5px;font-weight:500;display:inline-flex;align-items:center;gap:7px;
+    padding:10px 15px;border:1px solid var(--line);border-radius:8px;background:var(--panel);color:var(--text)}
+  .btn:hover{border-color:var(--green);color:var(--green);text-decoration:none;box-shadow:0 0 18px -6px var(--green)}
+  .btn.primary{background:linear-gradient(90deg,rgba(56,255,157,.16),rgba(53,214,255,.12));border-color:rgba(56,255,157,.5);color:var(--green)}
+  /* ---------- sections ---------- */
+  section{padding:40px 0;border-top:1px solid var(--line)}
+  .sh{font-family:var(--mono);font-size:14px;color:var(--muted);margin-bottom:20px}
+  .sh .p{color:var(--green)}.sh .cmd{color:var(--text)}.sh .fl{color:var(--amber)}
+  .about p{color:var(--text);max-width:680px}
+  .about .thesis{color:var(--muted)}
+  .about .thesis b{color:var(--green);font-weight:400;font-family:var(--mono)}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+  .chip{font-family:var(--mono);font-size:12.5px;color:var(--cyan);border:1px solid var(--line);
+    background:rgba(53,214,255,.05);padding:5px 11px;border-radius:6px}
+  .chip::before{content:"› ";color:var(--dim)}
+  /* research grid as terminal cards */
   .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-  @media(max-width:620px){.grid{grid-template-columns:1fr}}
-  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px}
-  .card h3{font-size:17px;margin-bottom:6px}
+  @media(max-width:640px){.grid{grid-template-columns:1fr}}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow:hidden;
+    transition:border-color .2s, transform .2s}
+  .card:hover{border-color:rgba(56,255,157,.45);transform:translateY(-3px)}
+  .card .cbar{display:flex;align-items:center;gap:6px;padding:8px 12px;border-bottom:1px solid var(--line);background:#0a111a}
+  .card .cbar .fn{font-family:var(--mono);font-size:11.5px;color:var(--dim);margin-left:6px}
+  .card .cin{padding:16px}
+  .card .meta{font-family:var(--mono);font-size:11px;color:var(--amber);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px}
+  .card h3{font-size:17px;margin-bottom:7px}
   .card p{color:var(--muted);font-size:14.5px}
-  .card .meta{color:var(--teal);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px}
+  .card .go{display:inline-block;margin-top:10px;font-family:var(--mono);font-size:13px;color:var(--cyan)}
+  .badge{font-family:var(--mono);font-size:10.5px;color:var(--amber);border:1px dashed rgba(255,181,69,.5);
+    padding:2px 7px;border-radius:999px;margin-left:7px;vertical-align:2px}
   ul.clean{list-style:none}
-  ul.clean li{padding:7px 0 7px 22px;position:relative;color:var(--muted)}
-  ul.clean li::before{content:"▹";position:absolute;left:0;color:var(--teal)}
-  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
-  .chip{background:#0f1830;border:1px solid var(--line);color:var(--muted);font-size:12.5px;padding:5px 10px;border-radius:999px}
-  footer{padding:34px 0 50px;color:var(--muted);font-size:14px}
-  .soon{color:var(--amber);font-size:12px;font-weight:700;border:1px dashed rgba(245,166,35,.5);padding:2px 8px;border-radius:999px;margin-left:8px}
+  ul.clean li{padding:8px 0 8px 24px;position:relative;color:var(--muted)}
+  ul.clean li::before{content:"$";position:absolute;left:0;color:var(--green);font-family:var(--mono)}
+  footer{padding:34px 0 60px;border-top:1px solid var(--line);font-family:var(--mono);font-size:13px;color:var(--dim)}
+  footer .g{color:var(--green)}
+  @media(prefers-reduced-motion:reduce){
+    #matrix{display:none}
+    .glitch::before,.glitch::after{animation:none;display:none}
+    .cursor{animation:none}
+  }
 </style>
 </head>
 <body>
+<canvas id="matrix"></canvas>
+<div class="fx"></div>
+
+<div class="topbar">
+  <div class="wrap row">
+    <span class="brand">nitikasec<span class="b">@sec:~$</span></span>
+    <nav class="navlinks">
+      <a href="#about">./about</a>
+      <a href="#research">./research</a>
+      <a href="#contact">./contact</a>
+      <a href="https://github.com/nitikasec" target="_blank" rel="noopener">github↗</a>
+    </nav>
+  </div>
+</div>
+
 <header>
   <div class="wrap">
-    <div class="eyebrow">Offensive Security · AI-Agent &amp; MCP Security</div>
-    <h1>Nitika Kumari</h1>
-    <p class="tag">Offensive security researcher focused on breaking — and defending — AI agents, LLMs,
-      and the Model Context Protocol. I build attack labs, publish research, and write reproducible
-      findings.</p>
-    <div class="links">
-      <a class="btn primary" href="https://github.com/nitikasec/agent-heist" target="_blank" rel="noopener">⚡ Agent Heist Lab</a>
-      <a class="btn" href="https://github.com/nitikasec" target="_blank" rel="noopener">GitHub</a>
-      <a class="btn" href="https://www.linkedin.com/in/nitikasec" target="_blank" rel="noopener">LinkedIn</a>
-      <a class="btn" href="https://www.linkedin.com/pulse/field-guide-mcp-agent-attacks-lab-you-can-run-nitika-kumari-gc7bc/" target="_blank" rel="noopener">Field Guide →</a>
+    <div class="eyebrow">offensive security · ai-agent &amp; mcp exploitation</div>
+    <h1 class="glitch" data-text="Nitika Kumari">Nitika Kumari</h1>
+    <div class="role">breaking &amp; defending <b>AI agents</b> · <b>LLMs</b> · <b>Model Context Protocol</b></div>
+
+    <div class="term" aria-label="Terminal introduction">
+      <div class="bar">
+        <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+        <span class="title">bash — nitikasec@sec — 80×24</span>
+      </div>
+      <div class="body" id="termBody">
+        <div class="line" id="termOut"></div><span class="cursor" id="cur"></span>
+      </div>
+    </div>
+
+    <div class="cta">
+      <a class="btn primary" href="https://github.com/nitikasec/agent-heist" target="_blank" rel="noopener">⚡ run Agent Heist</a>
+      <a class="btn" href="https://www.linkedin.com/pulse/field-guide-mcp-agent-attacks-lab-you-can-run-nitika-kumari-gc7bc/" target="_blank" rel="noopener">read the field guide</a>
+      <a class="btn" href="https://github.com/nitikasec" target="_blank" rel="noopener">github</a>
+      <a class="btn" href="https://www.linkedin.com/in/nitikasec" target="_blank" rel="noopener">linkedin</a>
     </div>
   </div>
 </header>
 
-<section id="about">
+<section id="about" class="about">
   <div class="wrap">
-    <h2>About</h2>
-    <p class="lead">What I do and what I'm known for.</p>
-    <p style="color:var(--muted)">I'm an offensive security analyst with 1+ year of professional
-      experience and 100+ assessments across web, API, mobile, and cloud. Over the past year I've
-      specialized in <strong style="color:var(--text)">AI-agent and LLM security</strong> — how AI
-      systems that use tools and read untrusted content can be attacked, and how to actually defend
-      them. My core thesis: <em style="color:var(--text)">a model refusing is not a security control
-      — enforcement has to live below the model, in the tool layer.</em></p>
+    <div class="sh"><span class="p">nitika@sec</span>:<span class="fl">~/about</span><span class="p">$</span> <span class="cmd">cat whoami.md</span></div>
+    <p>I'm an offensive security analyst with 1+ year of professional experience and 100+ assessments
+      across web, API, mobile, and cloud — including critical finds like an SSO account takeover and a
+      payment bypass. Over the past year I've specialized in <strong>AI-agent and LLM security</strong>:
+      how systems that use tools and read untrusted content get attacked, and how to actually defend them.</p>
+    <p class="thesis" style="margin-top:14px">Core thesis: <b>a model refusing != a security control.</b>
+      Enforcement has to live below the model, in the tool layer.</p>
     <div class="chips">
-      <span class="chip">Prompt Injection</span>
-      <span class="chip">Tool Misuse</span>
-      <span class="chip">Excessive Agency</span>
-      <span class="chip">MCP Security</span>
+      <span class="chip">prompt injection</span>
+      <span class="chip">tool misuse</span>
+      <span class="chip">excessive agency</span>
+      <span class="chip">MCP security</span>
       <span class="chip">OWASP LLM Top 10</span>
-      <span class="chip">Web / API / Mobile / Cloud</span>
+      <span class="chip">web / api / mobile / cloud</span>
     </div>
   </div>
 </section>
 
-<section id="work">
+<section id="research">
   <div class="wrap">
-    <h2>Work &amp; Research</h2>
-    <p class="lead">Public labs, tools, and writing.</p>
+    <div class="sh"><span class="p">nitika@sec</span>:<span class="fl">~/research</span><span class="p">$</span> <span class="cmd">ls -la</span></div>
     <div class="grid">
       <div class="card">
-        <div class="meta">Open-source lab</div>
-        <h3>Agent Heist</h3>
-        <p>An intentionally-vulnerable lab where you learn to attack and defend AI agents / LLM apps —
-          five levels covering prompt injection, tool misuse, and excessive agency, with execution
-          traces, defence attribution, and OWASP mapping.</p>
-        <p style="margin-top:8px"><a href="https://github.com/nitikasec/agent-heist" target="_blank" rel="noopener">github.com/nitikasec/agent-heist →</a></p>
+        <div class="cbar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="fn">agent-heist/</span></div>
+        <div class="cin">
+          <div class="meta">open-source lab</div>
+          <h3>Agent Heist</h3>
+          <p>An intentionally-vulnerable lab to attack &amp; defend AI agents — 5 levels of prompt injection,
+            tool misuse and excessive agency, with execution traces, defence attribution, and OWASP mapping.</p>
+          <a class="go" href="https://github.com/nitikasec/agent-heist" target="_blank" rel="noopener">git clone →</a>
+        </div>
       </div>
       <div class="card">
-        <div class="meta">Article</div>
-        <h3>A Field Guide to MCP Agent Attacks</h3>
-        <p>Five real agent attack classes with a lab you can run yourself, mapped to the OWASP LLM
-          Top 10 and the MCP security spec — built around the "model refused ≠ secure" thesis.</p>
-        <p style="margin-top:8px"><a href="https://www.linkedin.com/pulse/field-guide-mcp-agent-attacks-lab-you-can-run-nitika-kumari-gc7bc/" target="_blank" rel="noopener">Read the field guide →</a></p>
+        <div class="cbar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="fn">field-guide.md</span></div>
+        <div class="cin">
+          <div class="meta">research · article</div>
+          <h3>A Field Guide to MCP Agent Attacks</h3>
+          <p>Five real agent attack classes with a lab you can run — mapped to the OWASP LLM Top 10 and the
+            MCP security spec, built on the "model refused != secure" thesis.</p>
+          <a class="go" href="https://www.linkedin.com/pulse/field-guide-mcp-agent-attacks-lab-you-can-run-nitika-kumari-gc7bc/" target="_blank" rel="noopener">read →</a>
+        </div>
       </div>
       <div class="card">
-        <div class="meta">Tooling</div>
-        <h3>AgentShield &amp; prompt-injection-harness</h3>
-        <p>A static analyzer for MCP server configs, and a harness for testing prompt-injection
-          resistance — part of my toolkit for AI-agent security testing.</p>
-        <p style="margin-top:8px"><a href="https://github.com/nitikasec" target="_blank" rel="noopener">See all repos →</a></p>
+        <div class="cbar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="fn">agentshield/</span></div>
+        <div class="cin">
+          <div class="meta">tooling</div>
+          <h3>AgentShield &amp; prompt-injection-harness</h3>
+          <p>A static analyzer for MCP server configs, and a harness to test prompt-injection resistance —
+            part of my AI-agent security testing toolkit.</p>
+          <a class="go" href="https://github.com/nitikasec" target="_blank" rel="noopener">ls repos →</a>
+        </div>
       </div>
       <div class="card">
-        <div class="meta">Vulnerability research</div>
-        <h3>MCP Server Findings <span class="soon">disclosures in progress</span></h3>
-        <p>Vulnerability research on open-source MCP servers — including command-injection and
-          sandbox-escape classes — reported through responsible disclosure. CVE/advisory links will
-          appear here as they publish.</p>
+        <div class="cbar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="fn">findings/</span></div>
+        <div class="cin">
+          <div class="meta">vulnerability research</div>
+          <h3>MCP Server Findings <span class="badge">disclosures in progress</span></h3>
+          <p>Research on open-source MCP servers — command-injection and sandbox-escape classes — reported
+            via responsible disclosure. CVE / advisory links land here as they publish.</p>
+        </div>
       </div>
     </div>
   </div>
@@ -142,31 +234,110 @@
 
 <section id="speaking">
   <div class="wrap">
-    <h2>Speaking &amp; Writing <span class="soon">growing</span></h2>
-    <p class="lead">Talks and writeups. Reach out if you'd like me to speak on AI-agent security.</p>
+    <div class="sh"><span class="p">nitika@sec</span>:<span class="fl">~/speaking</span><span class="p">$</span> <span class="cmd">cat talks.log</span></div>
     <ul class="clean">
       <li>Field guide to MCP agent attacks — published writeup (linked above).</li>
-      <li>Available for meetup / conference talks on prompt injection, agent tool-abuse, and MCP security.</li>
+      <li>Available for meetup / conference talks on prompt injection, agent tool-abuse &amp; MCP security.</li>
     </ul>
   </div>
 </section>
 
 <section id="contact">
   <div class="wrap">
-    <h2>Contact</h2>
-    <p class="lead">Open to AI-security research, red-teaming, and consulting work.</p>
-    <div class="links">
-      <a class="btn" href="https://www.linkedin.com/in/nitikasec" target="_blank" rel="noopener">LinkedIn: /in/nitikasec</a>
-      <a class="btn" href="https://github.com/nitikasec" target="_blank" rel="noopener">GitHub: @nitikasec</a>
+    <div class="sh"><span class="p">nitika@sec</span>:<span class="fl">~/contact</span><span class="p">$</span> <span class="cmd">./ping --me</span></div>
+    <p style="color:var(--muted);margin-bottom:16px">Open to AI-security research, red-teaming, and consulting work.</p>
+    <div class="cta">
+      <a class="btn" href="https://www.linkedin.com/in/nitikasec" target="_blank" rel="noopener">linkedin /in/nitikasec</a>
+      <a class="btn" href="https://github.com/nitikasec" target="_blank" rel="noopener">github @nitikasec</a>
     </div>
   </div>
 </section>
 
 <footer>
   <div class="wrap">
-    © <span id="yr"></span> Nitika Kumari · nitikasec · Offensive &amp; AI-agent security research.
+    <span class="g">$</span> echo "© <span id="yr"></span> Nitika Kumari · nitikasec · offensive &amp; ai-agent security research"
   </div>
 </footer>
-<script>document.getElementById('yr').textContent=new Date().getFullYear();</script>
+
+<script>
+  document.getElementById('yr').textContent=new Date().getFullYear();
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- typing terminal ---------- */
+  (function(){
+    var out=document.getElementById('termOut'), cur=document.getElementById('cur');
+    var seq=[
+      {t:'cmd',s:'whoami'},
+      {t:'out',s:'nitika kumari — offensive security researcher'},
+      {t:'cmd',s:'cat focus.txt'},
+      {t:'out',s:'breaking & defending AI agents, LLMs, and MCP servers'},
+      {t:'cmd',s:'./agent-heist --run'},
+      {t:'ok', s:'[+] lab online: prompt-injection · tool-misuse · excessive-agency'},
+      {t:'cmd',s:'ls ~/research'},
+      {t:'out',s:'agent-heist/  field-guide.md  agentshield/  findings/'}
+    ];
+    var html='', i=0;
+    function prompt(){return '<span class="p">nitika@sec</span>:<span class="o">~</span><span class="p">$</span> ';}
+    if(reduce){
+      seq.forEach(function(x){
+        if(x.t==='cmd') html+='<div>'+prompt()+'<span class="c">'+esc(x.s)+'</span></div>';
+        else html+='<div class="'+(x.t==='ok'?'ok':'o')+'">'+esc(x.s)+'</div>';
+      });
+      out.innerHTML=html; cur.style.display='none'; return;
+    }
+    function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+    function typeCmd(txt,cb){
+      var j=0, open='<div>'+prompt()+'<span class="c">';
+      (function tick(){
+        out.innerHTML=html+open+esc(txt.slice(0,j))+'</span></div>';
+        if(j++<txt.length) setTimeout(tick, 34+Math.random()*34);
+        else { html+=open+esc(txt)+'</span></div>'; setTimeout(cb, 260); }
+      })();
+    }
+    function printOut(cls,txt,cb){
+      html+='<div class="'+cls+'">'+esc(txt)+'</div>';
+      out.innerHTML=html; setTimeout(cb, 360);
+    }
+    function run(){
+      if(i>=seq.length){ return; }
+      var step=seq[i++];
+      if(step.t==='cmd') typeCmd(step.s, run);
+      else printOut(step.t==='ok'?'ok':'o', step.s, run);
+    }
+    setTimeout(run, 500);
+  })();
+
+  /* ---------- matrix rain ---------- */
+  (function(){
+    if(reduce) return;
+    var c=document.getElementById('matrix'), x=c.getContext('2d');
+    var chars='アカサタナハマヤラワ0123456789<>[]{}#$%&*/\\|=+ABCDEF'.split('');
+    var fs=14, cols, drops;
+    function resize(){
+      c.width=innerWidth; c.height=innerHeight;
+      cols=Math.floor(c.width/fs);
+      drops=new Array(cols).fill(0).map(function(){return Math.random()*-40;});
+    }
+    resize(); addEventListener('resize', resize);
+    var last=0;
+    function draw(t){
+      if(t-last>55){ last=t;
+        x.fillStyle='rgba(5,8,12,.09)'; x.fillRect(0,0,c.width,c.height);
+        x.font=fs+'px "JetBrains Mono",monospace';
+        for(var i=0;i<cols;i++){
+          var ch=chars[Math.floor(Math.random()*chars.length)];
+          var y=drops[i]*fs;
+          x.fillStyle = Math.random()>.975 ? '#9effd0' : '#1f8f5f';
+          x.fillText(ch, i*fs, y);
+          if(y>c.height && Math.random()>.975) drops[i]=0;
+          drops[i]++;
+        }
+      }
+      if(!document.hidden) requestAnimationFrame(draw);
+      else setTimeout(function(){requestAnimationFrame(draw);}, 400);
+    }
+    requestAnimationFrame(draw);
+  })();
+</script>
 </body>
 </html>
